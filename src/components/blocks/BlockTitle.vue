@@ -7,7 +7,8 @@
     colorClass="warning"
     v-bind:disabled="!elements.length"
     v-on:action="onDelete"
-  >Remove</app-button>
+    v-bind:languageBase="languageBase"
+  >{{$translate('remove')}}</app-button>
 </template>
 
 <script>
@@ -22,6 +23,7 @@ export default {
       type: String,
       required: true,
     },
+    languageBase: String,
   },
   emits: ['remove'],
   methods: {

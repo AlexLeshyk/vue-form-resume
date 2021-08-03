@@ -9,6 +9,7 @@
         v-bind:blockName="block.name"
         v-bind:id="block.id"
         v-bind:elements="elements"
+        v-bind:languageBase="languageBase"
         v-on:remove="$emit('remove-block',block.id)"
       >
       </component>

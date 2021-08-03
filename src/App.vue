@@ -3,22 +3,37 @@
     <AppAlert
       v-bind:alertMessage="alert"
       v-on:close="closeAlertMessage"
+      v-bind:languageBase="language"
     />
   </div>
   <div class="container column">
-    <div class="card">
-      <div class="form-control language-control">
+    <div class="card language-control">
+      <div class="form-control">
         <label for="language">{{$translate('changeLanguage')}}</label>
         <select id="language" v-model="language" v-on:change="changeLanguage">
           <option value="ru">{{$translate('ru')}}</option>
           <option value="en">{{$translate('en')}}</option>
         </select>
+        <app-button
+          v-on:action="openModal"
+          colorClass="primary"
+          v-bind:languageBase="language"
+        >{{$translate('open')}}</app-button>
       </div>
     </div>
   </div>
+  <teleport to=".modal-content">
+    <app-modal
+      v-if="modal"
+      v-on:close="closeModal"
+      v-bind:languageBase="language"
+      closeButton
+    ></app-modal>
+  </teleport>
   <div class="container column">
     <AppForm 
       v-on:add-form-block="addBlock"
+      v-bind:languageBase="language"
     />
     <AppView
       v-bind:elements="blocks"
@@ -80,7 +95,11 @@
         </ul>
         <div v-else>
           <p>{{$translate('noComments')}}</p>
-          <app-button v-bind:colorClass="'primary'" v-on:action="addComments" v-bind:language-base="language">{{$translate('loadComments')}}</app-button>
+          <app-button
+            v-bind:colorClass="'primary'"
+            v-on:action="addComments"
+            v-bind:language-base="language"
+          >{{$translate('loadComments')}}</app-button>
         </div>
       </div>
       
@@ -98,7 +117,7 @@ import AppTextOne from "./components/AppTextOne";
 import AppTextTwo from "./components/AppTextTwo";
 import AppTextThree from "./components/AppTextThree";
 import AppButton from "./components/AppButton";
-// import pinDirective from "./directives/pinDirective";
+import AppModal from "./components/AppModal.vue";
 import axios from 'axios';
 
 export default {
@@ -112,7 +131,8 @@ export default {
     AppTextOne: AppTextOne,
     AppTextTwo: AppTextTwo,
     AppTextThree: AppTextThree,
-    AppButton: AppButton
+    AppButton: AppButton,
+    AppModal: AppModal,
 },
   data() {
     return {
@@ -129,12 +149,19 @@ export default {
       openRate: 0,
       readRate: 0,
       language: 'en',
+      modal: false,
     }
   },
   mounted() {
     // this.addComments();
   },
   methods: {
+    closeModal() {
+      this.modal = false;
+    },
+    openModal() {
+      this.modal = true;
+    },
     changeLanguage() {
       this.i18n(this.language);
     },
@@ -148,8 +175,8 @@ export default {
       this.blocks = this.blocks.filter(item => item.id !== id);
       this.alert = {
         type: 'primary',
-        title: 'Блок удален!',
-        text: `Блок "${name}" был успешно удален!`,
+        title: `${this.$translate('block')} "${name}"`,
+        text: `${this.$translate('deleteBlock')}`,
       }
     },
     async addComments() {
@@ -180,8 +207,8 @@ export default {
           this.coms = this.coms.filter(comment => comment.id !== id);
           this.alert = {
             type: 'primary',
-            title: `Комментарий "${name}"`,
-            text: "Данный комментарий был успешно удален!",
+            title: `${this.$translate('comment')} "${name}"`,
+            text: `${this.$translate('deleteComment')}`,
           }
         } else {
           throw new Error('Что-то пошло не так');
@@ -226,15 +253,21 @@ export default {
 
 <style lang="scss" scoped>
   .language-control {
-    display: flex;
-    align-items: center;
-
+    padding: 0.5rem;
+    .form-control {
+      display: flex;
+      align-items: center;
+    }
+    
     label {
       width: 60%;
     }
-
     select {
       width: 40%;
+
+      & + button {
+        margin: 0 0 0 0.8rem;
+      }
     }
   }
 </style>

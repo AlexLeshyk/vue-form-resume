@@ -4,7 +4,7 @@ export default {
 
     let current = 'en';
 
-    const changeLanguage = name => {
+    const changeLang = name => {
       current = name;
     }
 
@@ -16,6 +16,6 @@ export default {
       }, options[current]);
     };
 
-    app.provide('i18n', changeLanguage);
+    app.provide('i18n', changeLang);
   }
 }

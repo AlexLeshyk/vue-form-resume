@@ -2,7 +2,8 @@
   <app-button
     v-on:action="openContent"
     v-bind:colorClass="isNewsOpen ? 'primary' : ''"
-  >{{templateButton}}
+    v-bind:languageBase="languageBase"
+  >{{isNewsOpen ? $translate('close') : $translate('open')}}
   </app-button>
   <app-button
     v-bind:colorClass="'danger'"
@@ -54,11 +55,6 @@ export default {
       this.wasNewsRead = false;
       this.$emit('unmark');
     },
-  },
-  computed: {
-    templateButton() {
-      return this.isNewsOpen ? this.$translate('close') : this.$translate('open');
-    }
   },
   components: {
     AppButton: AppButton,

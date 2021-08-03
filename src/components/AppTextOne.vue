@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="card">
-      <h3>{{title}}</h3>
+      <h3>{{$translate('firstTabTitle')}}</h3>
       <AppTabContent
         v-bind:tab-content="content"
         v-on:open-news="openContent"
@@ -21,8 +21,6 @@ export default {
   emits: ['open-news','read-news','unmark'],
   props: {
     title: String,
-  },
-  props: {
     languageBase: String,
   },
   components: {

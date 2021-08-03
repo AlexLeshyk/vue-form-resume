@@ -52,11 +52,11 @@ export default {
     margin: 0 0 5px;
   }
 
-  li + li {
-    border-top: 2px solid #42b983;
-  }
-
   .list-item {
+    & + li {
+      border-top: 2px solid #42b983;
+    }
+
     div {
       width: 100%;
     }
