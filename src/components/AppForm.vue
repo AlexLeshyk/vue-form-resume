@@ -13,6 +13,7 @@
       v-bind:placeholder="$translate('enterBlockName')"
       v-bind:error="errors.name"
       v-bind:label="$translate('blockName')"
+      v-bind:input-typee="inputType"
       v-model="name"
     ></app-input>
     <div class="form-control">
@@ -44,7 +45,8 @@ export default {
       name: '',
       errors: {
         name: null,
-      }
+      },
+      inputType: 'text',
     }
   },
   computed: {

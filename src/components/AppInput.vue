@@ -2,7 +2,7 @@
   <div class="form-control" v-bind:class="{invalid: error}">
     <label v-bind:for="id">{{label}}</label>
     <input 
-      type="text"
+      v-bind:type="inputType"
       v-bind:id="id"
       v-bind:placeholder="placeholder"
       v-bind:value="modelValue"
@@ -20,6 +20,8 @@
       placeholder: String,
       label: String,
       error: String,
+      inputType: String,
+      language: String,
     },
     data() {
       return {

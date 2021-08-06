@@ -126,6 +126,10 @@ h3 {
     max-width: 1000px;
 }
 
+.container.with-nav {
+    margin-top: 70px;
+}
+
 .container.column {
     display: flex;
 }
