@@ -1,23 +1,35 @@
 <template>
   <form class="card" v-on:submit.prevent="submit">
     <h2>{{$translate('loginTitle')}}</h2>
-    <app-input
-      v-bind:language="language"
-      v-bind:placeholder="$translate('enterYourEmail')"
-      v-bind:error="errors.email"
-      v-bind:label="$translate('email')"
-      v-bind:input-type="inputTypeText"
-      v-model.trim="email"
-    ></app-input>
-
-    <app-input
-      v-bind:language="language"
-      v-bind:placeholder="$translate('enterYourPas')"
-      v-bind:error="errors.password"
-      v-bind:label="$translate('password')"
-      v-bind:input-type="inputTypePas"
-      v-model="password"
-    ></app-input>
+    <div class="form-control"
+      v-bind:class="{'invalid': emailIsNotValid}">
+      <app-input-val
+        v-bind:language="language"
+        v-bind:placeholder="$translate('enterYourEmail')"
+        v-bind:label="$translate('email')"
+        v-bind:input-type="inputTypeText"
+        v-model.trim="email"
+      ></app-input-val>
+      <small
+        v-if="v$.email.$dirty && v$.email.required.$invalid"
+      >{{$translate('noEmptyEmail')}}</small>
+      <small
+        v-else-if="v$.email.$dirty && v$.email.email.$invalid"
+      >{{$translate('noCorrectEmail')}}</small>
+    </div>
+    <div class="form-control"
+      v-bind:class="{'invalid': passwordIsNotValid}">
+      <app-input-val
+        v-bind:language="language"
+        v-bind:placeholder="$translate('enterYourPas')"
+        v-bind:label="$translate('password')"
+        v-bind:input-type="inputTypePas"
+        v-model="password"
+      ></app-input-val>
+      <small
+        v-if="v$.password.$dirty && v$.password.required.$invalid"
+      >{{$translate('noEmptyPas')}}</small>
+    </div>
 
     <button class="btn primary" type="submit">{{$translate('enterEmail')}}</button>
     <router-link v-bind:to="{path: '/forget'}" v-slot="{navigate}">
@@ -32,11 +44,16 @@
 
 <script>
 import AppButton from "../components/AppButton";
-import AppInput from "../components/AppInput";
+import AppInputVal from "../components/AppInputVal";
+import useVuelidate from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
 export default {
+  setup () {
+    return { v$: useVuelidate() }
+  },
   components: {
     AppButton,
-    AppInput,
+    AppInputVal,
   },
   props: {
     language: {
@@ -56,22 +73,35 @@ export default {
       inputTypePas: 'password',
     }
   },
+  validations () {
+    return {
+      password: { required },
+      email: { required, email },
+    }
+  },
   computed: {
-    emailIsValid() {
-      return this.email !== '';
+    emailIsNotValid() {
+      return (this.v$.email.$dirty && this.v$.email.required.$invalid) ||
+        (this.v$.email.$dirty && this.v$.email.email.$invalid);
     },
-    passwordIsValid() {
-      return this.password !== '';
+    passwordIsNotValid() {
+      return this.v$.password.$dirty && this.v$.password.required.$invalid;
+    },
+    isFormValid() {
+      return this.emailIsValid && this.passwordIsValid;
     },
     isValid() {
-      if (!this.emailIsValid) {
-        this.errors.email = this.$translate('noEmptyEmail');
+      let isValid = true;
+
+      if (this.v$.$invalid) {
+        // console.log('errors',this.v$); 
+        this.v$.$touch();
+        isValid = false;
+      } else {
+        isValid = true;
       }
-      if (!this.passwordIsValid) {
-        this.errors.password = this.$translate('noEmptyPas');
-      }
-      return this.emailIsValid && this.passwordIsValid;
-    }
+      return isValid;
+    },
   },
   inject: ['login'],
   methods: {

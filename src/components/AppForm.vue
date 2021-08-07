@@ -10,10 +10,11 @@
       </select>
     </div>
     <app-input
+      v-bind:language="languageBase"
       v-bind:placeholder="$translate('enterBlockName')"
       v-bind:error="errors.name"
       v-bind:label="$translate('blockName')"
-      v-bind:input-typee="inputType"
+      v-bind:input-type="inputType"
       v-model="name"
     ></app-input>
     <div class="form-control">
@@ -58,7 +59,7 @@ export default {
     formIsValid() {
       let isValid = true;
       if (this.name.length === 0) {
-        this.errors.name = 'Имя не может быть пустым';
+        this.errors.name = this.$translate('noEmptyName');
         isValid = false;
       } else {
         this.errors.name = null;

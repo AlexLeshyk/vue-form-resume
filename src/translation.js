@@ -50,7 +50,9 @@ export const ru = {
   enterYourEmail: 'Введите ваш e-mail',
   enterYourPas: 'Введите ваш пароль',
   noEmptyEmail: 'Email не может быть пустым',
-  noEmptyPas: 'Password не может быть пустым',
+  noEmptyPas: 'Пароль не может быть пустым, введите пароль',
+  noCorrectEmail: 'Введите корректный email',
+  noEmptyName: 'Имя не может быть пустым',
 };
     
 export const en = {
@@ -106,4 +108,6 @@ export const en = {
   enterYourPas: 'Enter your password',
   noEmptyEmail: "Email can't be empty",
   noEmptyPas: "Password can't be empty",
+  noCorrectEmail: 'Please enter a valid email',
+  noEmptyName: "The name can't be empty",
 };
