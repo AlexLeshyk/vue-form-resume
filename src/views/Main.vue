@@ -71,30 +71,12 @@
   <div class="container">
     <AppLoader v-if="loading"/>
     <div v-else>
-      <div class="card">
-        <h3>{{$translate('commentTitle')}}</h3>
-        <ul class="list" v-if="coms.length">
-          <AppComments
-            v-for="item in searchSortedComments"
-            v-bind:key="item.id"
-            v-bind:title="item.name"
-            v-bind:id="item.id"
-            v-bind:text="item.body"
-            v-bind:email="item.email"
-            v-bind:post="item.postId"
-            v-on:remove-comment="removeComment"
-            v-bind:languageBase="language"
-          />
-        </ul>
-        <div v-else>
-          <p>{{$translate('noComments')}}</p>
-          <app-button
-            v-bind:colorClass="'primary'"
-            v-on:action="addComments"
-            v-bind:language-base="language"
-          >{{$translate('loadComments')}}</app-button>
-        </div>
-      </div>
+      <AppCommentsList
+        v-bind:comments="searchSortedComments"
+        v-on:remove="removeComment"
+        v-on:add-comments="addComments"
+        v-bind:language="language"
+      />
     </div>
   </div>
 </template>
@@ -102,7 +84,7 @@
 <script>
 import AppForm from "../components/AppForm";
 import AppView from "../components/AppView";
-import AppComments from "../components/AppComments";
+import AppCommentsList from "../components/AppCommentsList";
 import AppAlert from "../components/AppAlert";
 import AppLoader from "../components/AppLoader";
 import AppTextOne from "../components/AppTextOne";
@@ -114,7 +96,7 @@ export default {
   components: {
     AppForm: AppForm,
     AppView: AppView,
-    AppComments: AppComments,
+    AppCommentsList: AppCommentsList,
     AppAlert: AppAlert,
     AppLoader: AppLoader,
     AppTextOne: AppTextOne,

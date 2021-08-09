@@ -1,12 +1,12 @@
 <template>
   <li class="list-item">
     <div>
-      <h4 class="comment-title">{{ title }} <span> {{$translate('postGroup')}}: {{post}}</span></h4>
-      <small>{{ text }}</small>
-      <p><strong>{{ email }}</strong></p>
+      <h4 class="comment-title">{{ item.name }} <span> {{$translate('postGroup')}}: {{item.postId}}</span></h4>
+      <small>{{ item.body }}</small>
+      <p><strong>{{ item.email }}</strong></p>
       <app-button
         v-bind:colorClass="'primary'"
-        v-on:action="onRemove(), log(title, $event)"
+        v-on:action="onRemove(), log(item.name, $event)"
         v-bind:languageBase="languageBase"
         >{{$translate('delete')}}
       </app-button>
@@ -16,14 +16,13 @@
 
 <script>
 export default {
-  name: "AppComments",
-  emits: ['remove-comment'],
+  name: 'app-comment',
+  emits: ['remove'],
   props: {
-    id : Number,
-    title: String,
-    text: String,
-    email: String,
-    post: Number,
+    item: {
+      type: Object,
+      requried: true,
+    },
     languageBase: String,
   },
   data() {
@@ -32,10 +31,10 @@ export default {
   },
   methods: {
     log(title, $event) {
-      console.log('event', event);
+      console.log('event', event,'title', title);
     },
     onRemove() {
-      this.$emit('remove-comment',this.id);
+      this.$emit('remove',this.item);
     }
   },
 }
