@@ -23,7 +23,6 @@
   </div>
 </template>
 <script>
-import AppButton from "./AppButton";
 export default {
   name: "AppTabContent",
   emits: ['open-news','read-news','unmark'],
@@ -55,9 +54,6 @@ export default {
       this.wasNewsRead = false;
       this.$emit('unmark');
     },
-  },
-  components: {
-    AppButton: AppButton,
   },
 }
 </script>

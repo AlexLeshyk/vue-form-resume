@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import AppButton from "./AppButton";
 export default {
   name: "AppComments",
   emits: ['remove-comment'],
@@ -38,9 +37,6 @@ export default {
     onRemove() {
       this.$emit('remove-comment',this.id);
     }
-  },
-  components: {
-    AppButton: AppButton,
   },
 }
 </script>

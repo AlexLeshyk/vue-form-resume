@@ -52,13 +52,30 @@
     ></component>
   </keep-alive>
   <div class="container">
+    <div class="card search-btns">
+      <div class="form-control">
+        <app-input-val
+          v-model:inputValue.trim="seachQuery"
+          v-bind:label="$translate('search')"
+          v-bind:placeholder="$translate('searchPlaceholder')"
+        ></app-input-val>
+      </div>
+      <div class="form-control">
+        <app-sort-select
+          v-model:selectValue="selectedSort"
+          v-bind:options="sortOptions"
+        ></app-sort-select>
+      </div>
+    </div>
+  </div>
+  <div class="container">
     <AppLoader v-if="loading"/>
     <div v-else>
       <div class="card">
         <h3>{{$translate('commentTitle')}}</h3>
         <ul class="list" v-if="coms.length">
           <AppComments
-            v-for="item in coms"
+            v-for="item in searchSortedComments"
             v-bind:key="item.id"
             v-bind:title="item.name"
             v-bind:id="item.id"
@@ -91,7 +108,6 @@ import AppLoader from "../components/AppLoader";
 import AppTextOne from "../components/AppTextOne";
 import AppTextTwo from "../components/AppTextTwo";
 import AppTextThree from "../components/AppTextThree";
-import AppButton from "../components/AppButton";
 
 export default {
   name: 'Main',
@@ -104,7 +120,6 @@ export default {
     AppTextOne: AppTextOne,
     AppTextTwo: AppTextTwo,
     AppTextThree: AppTextThree,
-    AppButton: AppButton,
   },
   props: {
     language: String,
@@ -123,10 +138,17 @@ export default {
       },
       openRate: 0,
       readRate: 0,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'name', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'},
+        {value: 'email', name: 'По e-mail'},
+      ],
+      seachQuery: '',
     }
   },
   mounted() {
-    // this.addComments();
+    this.addComments();
   },
   methods: {
     addBlock(block) {
@@ -146,7 +168,7 @@ export default {
     async addComments() {
       this.loading = true;
       try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/comments?_limit=3`);
+        const response = await fetch(`https://jsonplaceholder.typicode.com/comments?_limit=6`);
         if (!response) {
           throw new Error('Список из комментариев пуст!');
         }
@@ -210,10 +232,30 @@ export default {
     classThree() {
       return this.active === 'three' ? 'warning' : '';
     },
+    sortedComments() {
+      return [...this.coms].sort((com1,com2) => com1[this.selectedSort]?.localeCompare(com2[this.selectedSort]));
+    },
+    searchSortedComments() {
+      return this.sortedComments.filter(com => com.name.toLowerCase().includes(this.seachQuery.toLowerCase()));
+    },
   },
+  watch: {
+    // selectedSort(newValue) {
+    //   console.log(newValue);
+    //   this.coms.sort((com1,com2) => com1[newValue]?.localeCompare(com2[newValue]));
+    // }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
+  .search-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .form-control {
+      width: 50%;
+      padding: 0 10px;
+    }
+  }
 </style>

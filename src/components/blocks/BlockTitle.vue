@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import AppButton from "../AppButton";
 export default {
   name: "BlockTitle",
   props: {
@@ -30,9 +29,6 @@ export default {
     onDelete(event) {
       this.$emit('remove', this.id);
     },
-  },
-  components: {
-    AppButton: AppButton,
   },
 }
 </script>

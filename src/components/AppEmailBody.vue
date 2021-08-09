@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import AppButton from "../components/AppButton";
 export default {
   inject: ['emails'],
   computed: {
@@ -32,9 +31,6 @@ export default {
   props: {
     id: String,
     languageBase: String,
-  },
-  components: {
-    AppButton,
   },
 }
 </script>

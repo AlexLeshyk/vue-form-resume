@@ -4,19 +4,23 @@
     v-bind:type="inputType"
     v-bind:id="id"
     v-bind:placeholder="placeholder"
-    v-bind:value="modelValue"
-    v-on:input="change"
+    v-bind:value="inputValue"
+    v-on:input="onChange"
   >
 </template>
 
 <script>
   export default {
-    emits: ['update:modelValue'],
+    name: 'app-input-val',
+    emits: ['update:inputValue'],
     props: {
-      modelValue: String,
+      inputValue: String,
       placeholder: String,
       label: String,
-      inputType: String,
+      inputType: {
+        type: String,
+        default: 'text',
+      },
       language: String,
     },
     data() {
@@ -25,8 +29,8 @@
       }
     },
     methods: {
-      change(event) {
-        this.$emit('update:modelValue', event.target.value);
+      onChange(event) {
+        this.$emit('update:inputValue', event.target.value);
       },
     },
   }

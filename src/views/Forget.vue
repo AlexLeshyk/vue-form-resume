@@ -8,10 +8,6 @@
 </template>
 
 <script>
-import AppButton from "../components/AppButton";
 export default {
-  components: {
-    AppButton,
-  },
 }
 </script>

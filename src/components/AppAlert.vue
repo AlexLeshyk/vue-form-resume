@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import AppButton from "./AppButton";
 export default {
   name: "AppAlert",
   emits: ['close'],
@@ -23,9 +22,6 @@ export default {
   props: {
     alertMessage: String,
     languageBase: String,
-  },
-  components: {
-    AppButton: AppButton,
   },
 }
 </script>

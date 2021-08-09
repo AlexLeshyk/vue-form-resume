@@ -17,39 +17,31 @@
   </div>
   <teleport to=".modal-content">
     <app-modal
-      v-if="modal"
-      v-on:close="closeModal"
-      v-bind:languageBase="language"
+      v-model:modal="modalVisible"
       closeButton
-    ></app-modal>
+    >
+      <h5>{{$translate('modalTitle')}}</h5>
+      <p>{{$translate('modalContent')}}</p>
+    </app-modal>
   </teleport>
 </template>
 
 <script>
-  import AppButton from "../components/AppButton";
-  import AppModal from "../components/AppModal.vue";
   export default {
     emits: ['changeLanguage','modal-open'],
     data() {
       return {
         language: 'en',
-        modal: false,
+        modalVisible: false,
       }
     },
     methods: {
       changeLanguage() {
         this.$emit('changeLanguage', this.language);
       },
-      closeModal() {
-        this.modal = false;
-      },
       openModal() {
-        this.modal = true;
+        this.modalVisible = true;
       },
-    },
-    components: {
-      AppButton,
-      AppModal, 
     },
   }
 </script>

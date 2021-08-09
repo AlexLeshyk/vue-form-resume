@@ -4,11 +4,9 @@
     <div class="form-control"
       v-bind:class="{'invalid': emailIsNotValid}">
       <app-input-val
-        v-bind:language="language"
         v-bind:placeholder="$translate('enterYourEmail')"
         v-bind:label="$translate('email')"
-        v-bind:input-type="inputTypeText"
-        v-model.trim="email"
+        v-model:inputValue.trim="email"
       ></app-input-val>
       <small
         v-if="v$.email.$dirty && v$.email.required.$invalid"
@@ -20,18 +18,21 @@
     <div class="form-control"
       v-bind:class="{'invalid': passwordIsNotValid}">
       <app-input-val
-        v-bind:language="language"
         v-bind:placeholder="$translate('enterYourPas')"
         v-bind:label="$translate('password')"
         v-bind:input-type="inputTypePas"
-        v-model="password"
+        v-model:inputValue="password"
       ></app-input-val>
       <small
         v-if="v$.password.$dirty && v$.password.required.$invalid"
       >{{$translate('noEmptyPas')}}</small>
     </div>
 
-    <button class="btn primary" type="submit">{{$translate('enterEmail')}}</button>
+    <app-button
+      v-bind:language="language"
+      colorClass="primary"
+      type="submit"
+    >{{$translate('enterEmail')}}</app-button>
     <router-link v-bind:to="{path: '/forget'}" v-slot="{navigate}">
       <app-button
         v-bind:language="language"
@@ -43,17 +44,11 @@
 </template>
 
 <script>
-import AppButton from "../components/AppButton";
-import AppInputVal from "../components/AppInputVal";
 import useVuelidate from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 export default {
   setup () {
     return { v$: useVuelidate() }
-  },
-  components: {
-    AppButton,
-    AppInputVal,
   },
   props: {
     language: {
@@ -69,7 +64,6 @@ export default {
         email: null,
         password: null,
       },
-      inputTypeText: 'text',
       inputTypePas: 'password',
     }
   },
@@ -90,6 +84,9 @@ export default {
     isFormValid() {
       return this.emailIsValid && this.passwordIsValid;
     },
+  },
+  inject: ['login'],
+  methods: {
     isValid() {
       let isValid = true;
 
@@ -102,11 +99,8 @@ export default {
       }
       return isValid;
     },
-  },
-  inject: ['login'],
-  methods: {
     submit() {
-      if (this.isValid) {
+      if (this.isValid()) {
         this.login();
       }
     }

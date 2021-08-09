@@ -9,6 +9,7 @@
 
 <script>
   export default {
+    name: 'app-button',
     emits: ['action'],
     props: {
       colorClass: {

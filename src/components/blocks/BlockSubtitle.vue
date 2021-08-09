@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import AppButton from "../AppButton";
 export default {
   name: "BlockSubtitle",
   emits: ['remove'],
@@ -20,9 +19,6 @@ export default {
     elements: Array,
     id: String,
     languageBase: String,
-  },
-  components: {
-    AppButton: AppButton,
   },
 }
 </script>

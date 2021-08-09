@@ -53,6 +53,8 @@ export const ru = {
   noEmptyPas: 'Пароль не может быть пустым, введите пароль',
   noCorrectEmail: 'Введите корректный email',
   noEmptyName: 'Имя не может быть пустым',
+  searchPlaceholder: 'Поиск по...',
+  search: 'Поиск',
 };
     
 export const en = {
@@ -110,4 +112,6 @@ export const en = {
   noEmptyPas: "Password can't be empty",
   noCorrectEmail: 'Please enter a valid email',
   noEmptyName: "The name can't be empty",
+  searchPlaceholder: 'Search in...',
+  search: 'Search',
 };

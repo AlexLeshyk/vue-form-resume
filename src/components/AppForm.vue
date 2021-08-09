@@ -9,14 +9,17 @@
         <option value="text">{{$translate('text')}}</option>
       </select>
     </div>
-    <app-input
-      v-bind:language="languageBase"
-      v-bind:placeholder="$translate('enterBlockName')"
-      v-bind:error="errors.name"
-      v-bind:label="$translate('blockName')"
-      v-bind:input-type="inputType"
-      v-model="name"
-    ></app-input>
+    <div class="form-control"
+      v-bind:class="{'invalid': errors.name}">
+      <app-input-val
+          v-bind:placeholder="$translate('enterBlockName')"
+          v-bind:label="$translate('blockName')"
+          v-model.trim:inputValue="name"
+        ></app-input-val>
+      <small
+        v-if="errors.name"
+        >{{$translate('noEmptyName')}}</small>
+    </div>
     <div class="form-control">
       <label for="value">{{$translate('value')}}</label>
       <textarea v-focus id="value" rows="3" v-model.trim="value"></textarea>
@@ -30,8 +33,6 @@
 </template>
 
 <script>
-import AppButton from "./AppButton";
-import AppInput from "./AppInput";
 import focusDirective from "../directives/focusDirective";
 export default {
   name: "AppForm",
@@ -81,10 +82,6 @@ export default {
       this.value = '';
       this.name = '';
     }
-  },
-  components: {
-    AppButton: AppButton,
-    AppInput: AppInput,
   },
   directives: {
     focus: focusDirective,
