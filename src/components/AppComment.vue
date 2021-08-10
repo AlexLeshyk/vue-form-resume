@@ -1,7 +1,7 @@
 <template>
   <li class="list-item">
     <div>
-      <h4 class="comment-title">{{ item.name }} <span> {{$translate('postGroup')}}: {{item.postId}}</span></h4>
+      <h4 class="comment-title">{{ item.id }}. {{ item.name }} <span> {{$translate('postGroup')}}: {{item.postId}}</span></h4>
       <small>{{ item.body }}</small>
       <p><strong>{{ item.email }}</strong></p>
       <app-button
@@ -10,6 +10,11 @@
         v-bind:languageBase="languageBase"
         >{{$translate('delete')}}
       </app-button>
+      <app-button
+        v-bind:languageBase="languageBase"
+        v-bind:colorClass="'warning'"
+        v-on:action="openComment"
+      >{{$translate('open')}}</app-button>
     </div>
   </li>
 </template>
@@ -35,6 +40,15 @@ export default {
     },
     onRemove() {
       this.$emit('remove',this.item);
+    },
+    openComment() {
+      this.$router.push(`/comments/${this.item.id}`);
+      this.$emit('remove',this.item);
+    },
+    provide() {
+      return {
+        comment: this.item
+      }
     }
   },
 }

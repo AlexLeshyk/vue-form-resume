@@ -12,7 +12,6 @@
 <script>
 import TheNavbar from './components/TheNavbar';
 import TheToggler from './components/TheToggler';
-import axios from 'axios';
 
 export default {
   name: 'App',

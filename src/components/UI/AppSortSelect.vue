@@ -1,6 +1,6 @@
 <template>
   <select v-model="selectValue" v-on:change="changeOption">
-    <option disabled value="">Выберите из списка</option>
+    <option disabled value="">{{$translate('selectOption')}}</option>
     <option
       v-for="option in options"
       v-bind:key="option.value"
@@ -14,6 +14,7 @@
     name: 'app-sort-select',
     props: {
       selectValue: String,
+      language: String,
       options: {
         type: Array,
         default: () => [],

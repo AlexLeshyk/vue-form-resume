@@ -27,15 +27,17 @@ export default {
   name: "AppTabContent",
   emits: ['open-news','read-news','unmark'],
   props: {
+    tab: {
+      type: Object,
+      requried: true,
+    },
     tabContent: String,
-    isOpen: Boolean,
-    wasRead: Boolean,
     languageBase: String,
   },
   data() {
     return {
-      isNewsOpen: this.isOpen,
-      wasNewsRead: this.wasRead,
+      isNewsOpen: this.tab.isOpen,
+      wasNewsRead: this.tab.wasRead,
     }
   },
   methods: {

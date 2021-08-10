@@ -4,6 +4,7 @@
       <h3>{{$translate('secondTabTitle')}}</h3>
       <AppTabContent
         v-bind:tab-content="content"
+        v-bind:tab="tab"
         v-on:open-news="openContent"
         v-on:read-news="readContent"
         v-on:unmark="unmark"
@@ -25,6 +26,10 @@ export default {
   },
   props: {
     languageBase: String,
+    tab: {
+      type: Object,
+      requried: true,
+    },
   },
   data() {
     return {

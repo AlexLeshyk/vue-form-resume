@@ -3,6 +3,7 @@
     <div class="card">
       <h3>{{$translate('firstTabTitle')}}</h3>
       <AppTabContent
+        v-bind:tab="tab"
         v-bind:tab-content="content"
         v-on:open-news="openContent"
         v-on:read-news="readContent"
@@ -20,7 +21,10 @@ export default {
   name: "AppTextOne",
   emits: ['open-news','read-news','unmark'],
   props: {
-    title: String,
+    tab: {
+      type: Object,
+      requried: true,
+    },
     languageBase: String,
   },
   components: {

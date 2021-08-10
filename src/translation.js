@@ -55,6 +55,7 @@ export const ru = {
   noEmptyName: 'Имя не может быть пустым',
   searchPlaceholder: 'Поиск по...',
   search: 'Поиск',
+  selectOption: 'Выберите из списка',
 };
     
 export const en = {
@@ -114,4 +115,5 @@ export const en = {
   noEmptyName: "The name can't be empty",
   searchPlaceholder: 'Search in...',
   search: 'Search',
+  selectOption: 'Select from the list',
 };

@@ -6,6 +6,7 @@ import Mail from './views/Mail.vue';
 import Main from './views/Main.vue';
 import NotFound from './views/NotFound';
 import AppEmailBody from './components/AppEmailBody.vue';
+import AppCommentPage from '@/views/AppCommentPage.vue';
 
 const router = createRouter({
   history: createWebHistory() ,
@@ -18,6 +19,7 @@ const router = createRouter({
       { path: ':id?', component: AppEmailBody, props: true }
     ]},
     { path: '/:notFound(.*)*', component: NotFound },
+    { path: '/comments/:id', component : AppCommentPage },
   ],
   linkActiveClass: 'active',
   linkExactActiveClass: 'active',

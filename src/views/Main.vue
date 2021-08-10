@@ -42,9 +42,7 @@
   <keep-alive>
     <component
       v-bind:is="componentName"
-      v-bind:title="tabComponent.titleComponent"
-      v-bind:is-open="tabComponent.isContentOpen"
-      v-bind:was-read="tabComponent.isAlreadyRead"
+      v-bind:tab="tabComponent"
       v-bind:language-base="language"
       v-on:open-news="openNews"
       v-on:read-news="markNewsRead"
@@ -64,6 +62,7 @@
         <app-sort-select
           v-model:selectValue="selectedSort"
           v-bind:options="sortOptions"
+          v-bind:language="language"
         ></app-sort-select>
       </div>
     </div>
@@ -78,6 +77,12 @@
         v-bind:language="language"
       />
     </div>
+    <div ref="observer" class="observer"></div>
+    <!-- <AppPagination
+      v-bind:pages="totalPages"
+      v-on:change-page="changePage"
+      v-bind:currentPage="page"
+    /> -->
   </div>
 </template>
 
@@ -90,6 +95,7 @@ import AppLoader from "../components/AppLoader";
 import AppTextOne from "../components/AppTextOne";
 import AppTextTwo from "../components/AppTextTwo";
 import AppTextThree from "../components/AppTextThree";
+// import AppPagination from "../components/AppPagination";
 
 export default {
   name: 'Main',
@@ -102,6 +108,7 @@ export default {
     AppTextOne: AppTextOne,
     AppTextTwo: AppTextTwo,
     AppTextThree: AppTextThree,
+    // AppPagination: AppPagination,
   },
   props: {
     language: String,
@@ -127,10 +134,25 @@ export default {
         {value: 'email', name: 'По e-mail'},
       ],
       seachQuery: '',
+      page: 1,
+      limit: 10,
+      totalPages: 0,
     }
   },
   mounted() {
     this.addComments();
+    const options = {
+      root: document.querySelector('#scrollArea'),
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    const callback = (entries, observer) => {
+      if(entries[0].isIntersecting && this.page < this.totalPages) {
+        this.loadMoreComments();
+      }
+    };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
   methods: {
     addBlock(block) {
@@ -150,7 +172,12 @@ export default {
     async addComments() {
       this.loading = true;
       try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/comments?_limit=6`);
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments?' + new URLSearchParams({
+          _page: this.page,
+          _limit: this.limit,
+        }));
+        this.totalPages = Math.ceil((response.headers.get('x-total-count') - 300) / this.limit);
+        
         if (!response) {
           throw new Error('Список из комментариев пуст!');
         }
@@ -163,6 +190,28 @@ export default {
           text: e.message,
         }
         this.loading = false;
+        console.error('Ошибка', e);
+      }
+    },
+    async loadMoreComments() {
+      try {
+        this.page = this.page + 1;
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments?' + new URLSearchParams({
+          _page: this.page,
+          _limit: this.limit,
+        }));
+        this.totalPages = Math.ceil((response.headers.get('x-total-count') - 450) / this.limit);
+        
+        if (!response) {
+          throw new Error('Список из комментариев пуст!');
+        }
+        this.coms = [...this.coms, ... await response.json()]
+      } catch (e) {
+        this.alert = {
+          type: 'danger',
+          title: 'Ошибка!',
+          text: e.message,
+        }
         console.error('Ошибка', e);
       }
     },
@@ -184,6 +233,9 @@ export default {
       } catch (e) {
         console.error('Ошибка', e);
       }
+    },
+    changePage(pageNumber) {
+      this.page = pageNumber;
     },
     closeAlertMessage() {
       this.alert = null;
@@ -226,6 +278,9 @@ export default {
     //   console.log(newValue);
     //   this.coms.sort((com1,com2) => com1[newValue]?.localeCompare(com2[newValue]));
     // }
+    // page() {
+    //   this.addComments();
+    // }
   }
 }
 </script>
@@ -239,5 +294,9 @@ export default {
       width: 50%;
       padding: 0 10px;
     }
+  }
+
+  .observer {
+    height: 30px;
   }
 </style>
