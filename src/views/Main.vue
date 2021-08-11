@@ -73,11 +73,12 @@
       <AppCommentsList
         v-bind:comments="searchSortedComments"
         v-on:remove="removeComment"
+        v-on:open-comment="openComment"
         v-on:add-comments="addComments"
         v-bind:language="language"
       />
     </div>
-    <div ref="observer" class="observer"></div>
+    <div v-intersection="{loadMoreComments,page,totalPages}" class="observer"></div>
     <!-- <AppPagination
       v-bind:pages="totalPages"
       v-on:change-page="changePage"
@@ -141,18 +142,18 @@ export default {
   },
   mounted() {
     this.addComments();
-    const options = {
-      root: document.querySelector('#scrollArea'),
-      rootMargin: '0px',
-      threshold: 1.0
-    }
-    const callback = (entries, observer) => {
-      if(entries[0].isIntersecting && this.page < this.totalPages) {
-        this.loadMoreComments();
-      }
-    };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
+    // const options = {
+    //   root: document.querySelector('#scrollArea'),
+    //   rootMargin: '0px',
+    //   threshold: 1.0
+    // }
+    // const callback = (entries, observer) => {
+    //   if(entries[0].isIntersecting && this.page < this.totalPages) {
+    //     this.loadMoreComments();
+    //   }
+    // };
+    // const observer = new IntersectionObserver(callback, options);
+    // observer.observe(this.$refs.observer);
   },
   methods: {
     addBlock(block) {
@@ -234,6 +235,9 @@ export default {
         console.error('Ошибка', e);
       }
     },
+    openComment(comment) {
+      this.$emit('open-comment',comment);
+    },
     changePage(pageNumber) {
       this.page = pageNumber;
     },
@@ -280,7 +284,7 @@ export default {
     // }
     // page() {
     //   this.addComments();
-    // }
+    // },
   }
 }
 </script>

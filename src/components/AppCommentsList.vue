@@ -7,6 +7,7 @@
         v-bind:key="comment.id"
         v-bind:item="comment"
         v-on:remove="$emit('remove',comment.id)"
+        v-on:open-comment="$emit('open-comment',comment)"
         v-bind:languageBase="language"
       />
     </ul>

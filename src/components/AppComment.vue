@@ -42,8 +42,14 @@ export default {
       this.$emit('remove',this.item);
     },
     openComment() {
-      this.$router.push(`/comments/${this.item.id}`);
-      this.$emit('remove',this.item);
+
+      this.$router.push({
+        path: `/comments/${this.item.id}`,
+        query: {
+          title: this.item.name
+        }
+      });
+      this.$emit('open-comment',this.item);
     },
     provide() {
       return {

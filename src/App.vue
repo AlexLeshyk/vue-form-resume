@@ -4,7 +4,11 @@
     <the-toggler
       v-on:changeLanguage="changeLanguage"
     ></the-toggler>
-    <router-view v-bind:language="language"></router-view>
+    <router-view
+      v-bind:language="language"
+      v-on:open-comment="openComment"
+      v-bind:current-comment="currentComment"
+    ></router-view>
   </div>
   
 </template>
@@ -23,9 +27,13 @@ export default {
     return {
       isAuth: true,
       language: 'en',
+      currentComment: {},
     }
   },
   methods: {
+    openComment(comment) {
+      this.currentComment = comment;
+    },
     changeLanguage(data) {
       this.language = data;
       this.i18n(this.language);

@@ -16,35 +16,14 @@
 </template>
 
 <script>
-import AppTabContent from "./AppTabContent";
+import tabContentMixin from '@/mixins/tabContentMixin';
 
 export default {
-  name: "AppTextTwo",
-  emits: ['read-news','unmark','open-news'],
-  components: {
-    AppTabContent: AppTabContent,
-  },
-  props: {
-    languageBase: String,
-    tab: {
-      type: Object,
-      requried: true,
-    },
-  },
+  name: "app-text-two",
+  mixins: [tabContentMixin],
   data() {
     return {
       content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, reiciendis.`,
-    }
-  },
-  methods: {
-    openContent() {
-      this.$emit('open-news');
-    },
-    readContent() {
-      this.$emit('read-news');
-    },
-    unmark() {
-      this.$emit('unmark');
     }
   },
 }

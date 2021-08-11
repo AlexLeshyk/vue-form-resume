@@ -56,6 +56,7 @@ export const ru = {
   searchPlaceholder: 'Поиск по...',
   search: 'Поиск',
   selectOption: 'Выберите из списка',
+  curComPage: 'Это страница комментария с',
 };
     
 export const en = {
@@ -116,4 +117,5 @@ export const en = {
   searchPlaceholder: 'Search in...',
   search: 'Search',
   selectOption: 'Select from the list',
+  curComPage: 'This is a comment page with',
 };

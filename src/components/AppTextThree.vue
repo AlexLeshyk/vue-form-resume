@@ -15,36 +15,14 @@
 </template>
 
 <script>
-import AppTabContent from "./AppTabContent";
-
+import tabContentMixin from '@/mixins/tabContentMixin';
 export default {
-  name: "AppComponentThree",
-  emits: ['read-news','unmark','open-news'],
-  props: {
-    languageBase: String,
-    tab: {
-      type: Object,
-      requried: true,
-    },
-  },
-  components: {
-    AppTabContent: AppTabContent,
-  },
+  name: 'app-component-three',
+  mixins: [tabContentMixin],
   data() {
     return {
       content: 'Lorem ipsum dolor sit amet.',
     }
   },
-  methods: {
-    openContent() {
-      this.$emit('open-news');
-    },
-    readContent() {
-      this.$emit('read-news');
-    },
-    unmark() {
-      this.$emit('unmark');
-    },
-  }
 }
 </script>
