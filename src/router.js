@@ -4,9 +4,10 @@ import Forget from './views/Forget.vue';
 import Dashboard from './views/Dashboard.vue';
 import Mail from './views/Mail.vue';
 import Main from './views/Main.vue';
-import NotFound from './views/NotFound';
+import NotFound from './views/NotFound.vue';
 import AppEmailBody from './components/AppEmailBody.vue';
 import AppCommentPage from '@/views/AppCommentPage.vue';
+import MainWithStore from '@/views/MainWithStore.vue';
 
 const router = createRouter({
   history: createWebHistory() ,
@@ -20,6 +21,7 @@ const router = createRouter({
     ]},
     { path: '/:notFound(.*)*', component: NotFound },
     { path: '/comments/:id', component : AppCommentPage },
+    { path: '/store', component : MainWithStore },
   ],
   linkActiveClass: 'active',
   linkExactActiveClass: 'active',
