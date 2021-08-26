@@ -14,7 +14,7 @@
     name: 'app-input-val',
     emits: ['update:inputValue'],
     props: {
-      inputValue: String,
+      inputValue: [String, Number],
       placeholder: String,
       label: String,
       inputType: {

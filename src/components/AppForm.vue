@@ -14,7 +14,7 @@
       <app-input-val
           v-bind:placeholder="$translate('enterBlockName')"
           v-bind:label="$translate('blockName')"
-          v-model.trim:inputValue="name"
+          v-model:inputValue.trim="name"
         ></app-input-val>
       <small
         v-if="errors.name"
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import focusDirective from "../directives/focusDirective";
+import focusDirective from "@/directives/focusDirective";
 export default {
   name: "AppForm",
   emits: ['add-form-block'],

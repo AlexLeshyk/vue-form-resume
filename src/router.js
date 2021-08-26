@@ -12,7 +12,7 @@ import MainWithStore from '@/views/MainWithStore.vue';
 const router = createRouter({
   history: createWebHistory() ,
   routes: [
-    { path: '/', component : Main },
+    { path: '/', component : Main, name: 'main' },
     { path: '/login', component : Login },
     { path: '/forget', component : Forget, meta: { noEnter: true } },
     { path: '/dashboard', component : Dashboard, name: 'dash', props: (route) => ({ query: route.query.q }) },

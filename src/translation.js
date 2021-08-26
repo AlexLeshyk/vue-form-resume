@@ -57,6 +57,16 @@ export const ru = {
   search: 'Поиск',
   selectOption: 'Выберите из списка',
   curComPage: 'Это страница комментария с',
+  create: 'Создать',
+  noEmptyComTitle: 'Заголовок комментария не может быть пустым',
+  comTitleLength: 'Длина заголовка должна быть не меньше 8 символов',
+  comTextLength: 'Длина заголовка должна быть не меньше 10 символов',
+  comTitle:'Заголовок комментария',
+  enterComTitle:'Введите заголовок комментария',
+  noEmptyComBody: "Текст комментария не может быть пустым",
+  comBody:'Текст комментария',
+  enterCombody:'Введите текст комментария',
+  createCom:'Создать комментарий',
 };
     
 export const en = {
@@ -118,4 +128,14 @@ export const en = {
   search: 'Search',
   selectOption: 'Select from the list',
   curComPage: 'This is a comment page with',
+  create: 'Create',
+  noEmptyComTitle: "Comment title cann't be empty",
+  comTitleLength: 'Title length must be at least 8 characters',
+  comTextLength: 'Title length must be at least 10 characters',
+  comTitle:'Comment title',
+  enterComTitle:'Enter comment title',
+  noEmptyComBody: "Comment text cann't be empty",
+  comBody:'Comment text',
+  enterCombody:'Enter comment text',
+  createCom:'Create comment',
 };

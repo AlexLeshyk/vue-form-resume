@@ -59,6 +59,13 @@
         ></app-input-val>
       </div>
       <div class="form-control">
+        <app-button
+          v-on:action="openModal"
+          colorClass="primary"
+          v-bind:languageBase="language"
+        >{{$translate('create')}}</app-button>
+      </div>
+      <div class="form-control">
         <app-sort-select
           v-model:selectValue="selectedSort"
           v-bind:options="sortOptions"
@@ -85,6 +92,18 @@
       v-bind:currentPage="page"
     /> -->
   </div>
+  <teleport to=".modal-content">
+    <app-modal
+      v-model:modal="modalVisible"
+      closeButton
+    >
+      <comment-form
+        v-bind:languageBase="language"
+        v-on:create="createComment"
+        v-bind:inputValue="inputValue"
+      ></comment-form>
+    </app-modal>
+  </teleport>
 </template>
 
 <script>
@@ -96,6 +115,7 @@ import AppLoader from "../components/AppLoader";
 import AppTextOne from "../components/AppTextOne";
 import AppTextTwo from "../components/AppTextTwo";
 import AppTextThree from "../components/AppTextThree";
+import CommentForm from "@/components/CommentForm";
 // import AppPagination from "../components/AppPagination";
 
 export default {
@@ -109,6 +129,7 @@ export default {
     AppTextOne: AppTextOne,
     AppTextTwo: AppTextTwo,
     AppTextThree: AppTextThree,
+    CommentForm: CommentForm,
     // AppPagination: AppPagination,
   },
   props: {
@@ -138,6 +159,7 @@ export default {
       page: 1,
       limit: 10,
       totalPages: 0,
+      modalVisible: false,
     }
   },
   mounted() {
@@ -156,6 +178,14 @@ export default {
     // observer.observe(this.$refs.observer);
   },
   methods: {
+    openModal() {
+      this.modalVisible = true;
+    },
+    createComment(comment) {
+      console.log('---',comment);
+      this.modalVisible = false;
+      this.coms.push(comment);
+    },
     addBlock(block) {
       console.log('blocks', this.blocks);
       this.blocks.push(block);
@@ -217,11 +247,9 @@ export default {
       }
     },
     async removeComment(id) {
+      const name = this.coms.find(comment => comment.id === id).name;
       try {
-        const name = this.coms.find(comment => comment.id === id).name;
-        const response = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`);
-        console.log('response',response);
-        if (response.ok) {
+        if (id) {
           this.coms = this.coms.filter(comment => comment.id !== id);
           this.alert = {
             type: 'primary',
@@ -231,7 +259,7 @@ export default {
         } else {
           throw new Error('Что-то пошло не так');
         }
-      } catch (e) {
+      } catch(e) {
         console.error('Ошибка', e);
       }
     },
