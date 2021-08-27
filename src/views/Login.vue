@@ -20,7 +20,7 @@
       <app-input-val
         v-bind:placeholder="$translate('enterYourPas')"
         v-bind:label="$translate('password')"
-        v-bind:input-type="inputTypePas"
+        v-bind:input-type="'password'"
         v-model:inputValue="password"
       ></app-input-val>
       <small
@@ -64,7 +64,6 @@ export default {
         email: null,
         password: null,
       },
-      inputTypePas: 'password',
     }
   },
   validations () {
