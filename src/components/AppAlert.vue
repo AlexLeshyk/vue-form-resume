@@ -20,7 +20,7 @@ export default {
     },
   },
   props: {
-    alertMessage: String,
+    alertMessage: Object,
     languageBase: String,
   },
 }

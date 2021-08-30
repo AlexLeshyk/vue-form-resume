@@ -61,6 +61,7 @@ export default {
     return {
     }
   },
+  emits: ['open-comment'],
   mounted() {
     this.addComments();
   },

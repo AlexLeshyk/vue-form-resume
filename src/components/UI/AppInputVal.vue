@@ -1,12 +1,14 @@
 <template>
-  <label v-bind:for="id">{{label}}</label>
-  <input
-    v-bind:type="inputType"
-    v-bind:id="id"
-    v-bind:placeholder="placeholder"
-    v-bind:value="inputValue"
-    v-on:input="onChange"
-  >
+  <div>
+    <label v-bind:for="id">{{label}}</label>
+    <input
+      v-bind:type="inputType"
+      v-bind:id="id"
+      v-bind:placeholder="placeholder"
+      v-bind:value="inputValue"
+      v-on:input="onChange"
+    >
+  </div>
 </template>
 
 <script>

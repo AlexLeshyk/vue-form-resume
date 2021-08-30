@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'app-comment',
-  emits: ['remove'],
+  emits: ['remove','open-comment'],
   props: {
     item: {
       type: Object,

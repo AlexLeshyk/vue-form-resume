@@ -64,7 +64,7 @@
         },
       }
     },
-    emmits: ['create'],
+    emits: ['create'],
     computed: {
       nameCheck() {
         return this.comment.name.length < 8;
