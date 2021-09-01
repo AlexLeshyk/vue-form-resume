@@ -12,6 +12,7 @@
 <script>
   export default {
     name: 'app-sort-select',
+    emits: ['update:selectValue'],
     props: {
       selectValue: String,
       language: String,

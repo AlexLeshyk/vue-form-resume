@@ -28,7 +28,7 @@
 
 <script>
   export default {
-    emits: ['changeLanguage','modal-open'],
+    emits: ['changeLanguage'],
     data() {
       return {
         language: 'en',

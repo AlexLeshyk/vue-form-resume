@@ -26,7 +26,7 @@
   import AppComment from "./AppComment";
   export default {
     name: 'app-comments-list',
-    emits: ['remove-comment','add-comments'],
+    emits: ['remove-comment','add-comments','open-comment'],
     components: {
       AppComment
     },

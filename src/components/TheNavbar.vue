@@ -2,11 +2,11 @@
   <header class="navbar" v-if="visible">
     <h3><router-link to="/">GMail</router-link></h3>
     <ul class="navbar-menu">
-      <li><router-link v-bind:language="language" to="/">{{$translate('main')}}</router-link></li>
-      <li><router-link to="/store">Store</router-link></li>
-      <li><router-link v-bind:language="language" to="/login">{{$translate('login')}}</router-link></li>
-      <li><router-link v-bind:language="language" to="/dashboard">{{$translate('dashboard')}}</router-link></li>
-      <li>
+      <li class="navbar-menu_item"><router-link v-bind:language="language" to="/">{{$translate('main')}}</router-link></li>
+      <li class="navbar-menu_item"><router-link to="/store">Store</router-link></li>
+      <li class="navbar-menu_item"><router-link v-bind:language="language" to="/login">{{$translate('login')}}</router-link></li>
+      <li class="navbar-menu_item"><router-link v-bind:language="language" to="/dashboard">{{$translate('dashboard')}}</router-link></li>
+      <li class="navbar-menu_item">
         <router-link v-bind:language="language" custom v-slot="{navigate, href}" to="/mail">
           <a href="#"
             v-on:click="navigate"
@@ -16,7 +16,7 @@
           >{{$translate('mail')}}</a>
         </router-link>
       </li>
-      <li><a href="#" v-on:click.prevent="logout">{{$translate('logout')}}</a></li>
+      <li class="navbar-menu_item"><a href="#" v-on:click.prevent="logout">{{$translate('logout')}}</a></li>
     </ul>
   </header>
 </template>

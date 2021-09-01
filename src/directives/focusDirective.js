@@ -1,5 +1,9 @@
 export default {
   mounted(el) {
-    el.focus();
+    if (el.tagName === 'DIV') {
+      el.querySelector('input').focus();
+    } else {
+      el.focus();
+    }
   }
 }

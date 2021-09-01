@@ -162,6 +162,7 @@ export default {
       modalVisible: false,
     }
   },
+  emits: ['open-comment'],
   mounted() {
     this.addComments();
     // const options = {
@@ -246,7 +247,7 @@ export default {
         console.error('Ошибка', e);
       }
     },
-    async removeComment(id) {
+    removeComment(id) {
       const name = this.coms.find(comment => comment.id === id).name;
       try {
         if (id) {
@@ -325,6 +326,10 @@ export default {
     .form-control {
       width: 50%;
       padding: 0 10px;
+
+      &:nth-child(2) {
+        text-align: center;
+      }
     }
   }
 

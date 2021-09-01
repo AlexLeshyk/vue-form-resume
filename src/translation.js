@@ -67,6 +67,7 @@ export const ru = {
   comBody:'Текст комментария',
   enterCombody:'Введите текст комментария',
   createCom:'Создать комментарий',
+  byName:'По названию',
 };
     
 export const en = {
@@ -138,4 +139,5 @@ export const en = {
   comBody:'Comment text',
   enterCombody:'Enter comment text',
   createCom:'Create comment',
+  byName:'By name',
 };

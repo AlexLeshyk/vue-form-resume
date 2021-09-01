@@ -26,6 +26,7 @@ import BlockAvatar from "./blocks/BlockAvatar";
 
 export default {
   name: "AppView",
+  emits: ['remove-block'],
   props: ['elements','languageBase'],
   components: {
     BlockSubtitle: BlockSubtitle,
