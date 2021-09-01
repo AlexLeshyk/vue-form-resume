@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "AppAlert",
+  name: 'app-alert',
   emits: ['close'],
   methods: {
     onClose() {

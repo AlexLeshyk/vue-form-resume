@@ -44,14 +44,12 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import AppCommentsList from "../components/AppCommentsList";
-import AppAlert from "../components/AppAlert";
 import AppLoader from "../components/AppLoader";
 
 export default {
   name: 'Main',
   components: {
     AppCommentsList: AppCommentsList,
-    AppAlert: AppAlert,
     AppLoader: AppLoader,
   },
   props: {

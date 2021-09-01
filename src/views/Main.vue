@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <AppAlert
+    <app-alert
       v-bind:alertMessage="alert"
       v-on:close="closeAlertMessage"
       v-bind:languageBase="language"
-    />
+    ></app-alert>
   </div>
   <div class="container column">
     <AppForm 
@@ -110,7 +110,6 @@
 import AppForm from "../components/AppForm";
 import AppView from "../components/AppView";
 import AppCommentsList from "../components/AppCommentsList";
-import AppAlert from "../components/AppAlert";
 import AppLoader from "../components/AppLoader";
 import AppTextOne from "../components/AppTextOne";
 import AppTextTwo from "../components/AppTextTwo";
@@ -124,7 +123,6 @@ export default {
     AppForm: AppForm,
     AppView: AppView,
     AppCommentsList: AppCommentsList,
-    AppAlert: AppAlert,
     AppLoader: AppLoader,
     AppTextOne: AppTextOne,
     AppTextTwo: AppTextTwo,
@@ -200,6 +198,7 @@ export default {
         title: `${this.$translate('block')} "${name}"`,
         text: `${this.$translate('deleteBlock')}`,
       }
+      console.log('alert',this.alert.type);
     },
     async addComments() {
       this.loading = true;
