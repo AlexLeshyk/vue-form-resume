@@ -1,6 +1,7 @@
 <template>
   <form class="card card-w30" v-on:submit.prevent="onSubmit">
     <div class="form-control">
+      title: {{$translate('title')}}
       <label for="type">{{$translate('blockType')}}</label>
       <app-sort-select
         id="type"
@@ -50,7 +51,7 @@ export default {
         name: null,
       },
       blockOptions: [
-        {value: 'title', name: 'Заголовок'},
+        {value: 'title', name: this.optionTitle},
         {value: 'subtitle', name: 'Подзаголовок'},
         {value: 'avatar', name: 'Аватар'},
         {value: 'text', name: 'Текст'},
@@ -60,7 +61,10 @@ export default {
   computed: {
     isValid() {
       return this.value.length < 5;
-    }
+    },
+    optionTitle() {
+      return `${this.$translate('title')}`;
+    },
   },
   methods: {
     formIsValid() {
